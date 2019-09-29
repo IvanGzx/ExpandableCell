@@ -12,6 +12,7 @@ open class ExpandableCell: UITableViewCell {
     open var arrowImageView: UIImageView!
     open var rightMargin: CGFloat = 16
     open var highlightAnimation = HighlightAnimation.animated
+    open var animationAngle = -CGFloat.pi / 2
     private var isOpen = false
     private var initialExpansionAllowed = true
 
@@ -51,7 +52,7 @@ open class ExpandableCell: UITableViewCell {
         self.initialExpansionAllowed = false
         if highlightAnimation == .animated {
             UIView.animate(withDuration: 0.3) {[weak self] in
-                self?.arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 1.0, 0.0, 0.0)
+                self?.arrowImageView.transform = CGAffineTransform(rotationAngle: self?.animationAngle ?? 0)
             }
         }
     }
@@ -60,7 +61,7 @@ open class ExpandableCell: UITableViewCell {
         self.isOpen = false
         if highlightAnimation == .animated {
             UIView.animate(withDuration: 0.3) {[weak self] in
-                self?.arrowImageView.layer.transform = CATransform3DMakeRotation(CGFloat(Double.pi), 0.0, 0.0, 0.0)
+                self?.arrowImageView.transform = CGAffineTransform(rotationAngle: 0)
             }
         }
     }
